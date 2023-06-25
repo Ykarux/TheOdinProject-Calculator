@@ -1,21 +1,21 @@
-let firstNumber = 0;
-let operator = '+';
-let secondNumber = 0;
+let firstNumber = '';
+let operator = '';
+let secondNumber = '';
 let writeOnFirst = true;
 let result = 0;
 
 const paragraph = document.querySelector('p')
 
 function sum(a, b) {
-	return a + b
+	return (a + b).toFixed(2)
 }
 
 function subtract(a, b) {
-	return a - b
+	return (a - b).toFixed(2)
 }
 
 function multiply(a, b) {
-	return a * b
+	return (a * b).toFixed(2)
 }
 
 function divide(a, b) {
@@ -39,37 +39,46 @@ function display(text) {
 }
 
 function handleClick(e) {
-	console.log('|' + e.target.textContent + '|')
 	if (e.target.textContent === 'C') {
-		firstNumber = 0;
-		secondNumber = 0
+		firstNumber = '';
+		secondNumber = '';
 		result = 0
 		paragraph.textContent = ''
 		writeOnFirst = true
 	} else if (e.target.textContent === '=') {
-		if (operator === '/' && secondNumber === 0) {
+		if (operator === '/' && secondNumber == 0) {
 			paragraph.textContent = 'ERROR'
 		} else {
-			let result = operate(firstNumber, secondNumber, operator)
+			console.log(firstNumber + ' ' + parseFloat(firstNumber))
+			console.log(parseFloat(secondNumber))
+			let result = operate(Number(firstNumber), Number(secondNumber), operator)
 			paragraph.textContent = result
-			firstNumber = result
-			secondNumber = 0;
+			firstNumber = result.toString()
+			secondNumber = '';
+			operator = '';
+			writeOnFirst = true
 		}
 	} else {
-		if (e.target.textContent === '+' ||
+		if ((e.target.textContent === '+' ||
 			e.target.textContent === '-' ||
 			e.target.textContent === '/' ||
-			e.target.textContent === '*') {
+			e.target.textContent === '*') && operator === '') {
 			operator = e.target.textContent
 			writeOnFirst = false
+			display(e.target.textContent)
 		} else {
 			if (writeOnFirst === true) {
-				firstNumber += Number(e.target.textContent)
+				if (!(firstNumber.includes('.') && e.target.textContent === '.')) {
+					firstNumber += e.target.textContent
+					display(e.target.textContent)
+				}
 			} else {
-				secondNumber += Number(e.target.textContent)
+				if (!(secondNumber.includes('.') && e.target.textContent === '.')) {
+					secondNumber += e.target.textContent
+					display(e.target.textContent)
+				}
 			}
 		}
-		display(e.target.textContent)
 	}
 }
 
