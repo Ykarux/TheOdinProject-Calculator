@@ -58,6 +58,8 @@ function handleClick(e) {
 			operator = '';
 			writeOnFirst = true
 		}
+	} else if (e.target.textContent === 'B') {
+
 	} else {
 		if (e.target.textContent === '+' ||
 			e.target.textContent === '-' ||
