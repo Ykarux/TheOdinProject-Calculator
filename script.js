@@ -59,7 +59,12 @@ function handleClick(e) {
 			writeOnFirst = true
 		}
 	} else if (e.target.textContent === 'B') {
-
+		if (writeOnFirst === true) {
+			firstNumber = firstNumber.slice(0, firstNumber.length - 1)
+		} else {
+			secondNumber = secondNumber.slice(0, secondNumber.length - 1)
+		}
+		paragraph.textContent = paragraph.textContent.slice(0, paragraph.textContent.length - 1)
 	} else {
 		if (e.target.textContent === '+' ||
 			e.target.textContent === '-' ||
